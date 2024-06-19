@@ -1,7 +1,7 @@
 import { signOut } from '@/auth';
 import Link from 'next/link';
 import Image from 'next/image'
-import NavLinks from '@/components/plants/nav-links';
+import NavLinks from '@/components/nav-links';
 
 export default function SideNav() {
     return (
