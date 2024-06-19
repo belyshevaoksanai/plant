@@ -1,19 +1,8 @@
-const plants = [
-    {
-        id: '1',
-        name: 'Фикус'
-    },
-    {
-        id: '2',
-        name: 'Лимон'
-    },
-    {
-        id: '3',
-        name: 'Орхидея'
-    }
-];
+import { fetchPlants } from "@/lib/data";
 
-export function Table() {
+export async function Table() {
+    const plants = await fetchPlants();
+
     return (
         <div className="mt-6 flow-root">
             <div className="inline-block min-w-full align-middle">
