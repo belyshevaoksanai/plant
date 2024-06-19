@@ -12,7 +12,7 @@ export default function LoginPage() {
           src="/logo.svg"
           alt="logo"
         />
-        <span className='text-white'>Plant</span>
+        <span className='text-white'>Полей меня!</span>
       </div>
       <div className="bg-blue grid grid-cols-[2fr_1fr] h-screen">
         <div className='flex flex-col items-center justify-center gap-3'>

@@ -4,3 +4,6 @@
 
 nextjs - фреймворк
 [authjs](https://authjs.dev) - библиотека для авторизации
+
+## Enviroment
+Для заполнения .env выполнить "vercel env pull"
