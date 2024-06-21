@@ -17,3 +17,25 @@ export async function fetchPlants() {
     throw new Error('Failed to fetch revenue data.');
   }
 }
+
+
+export async function fetchPlantById(id: string) {
+  noStore();
+
+  try {
+    const data = await sql<IPlant>`
+      SELECT
+        plants.id,
+        plants.name
+      FROM plants
+      WHERE plants.id = ${id};
+    `;
+
+    const plants = data.rows;
+
+    return plants[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch plant.');
+  }
+}

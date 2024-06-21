@@ -65,3 +65,26 @@ export async function deletePlant(id: string) {
     }
 }
 
+const UpdatePlant = FormSchema.omit({ id: true });
+
+export async function updatePlant(id: string, formData: FormData) {
+    const { name } = UpdatePlant.parse({
+        name: formData.get('name')
+    });
+
+    try {
+        await sql`
+          UPDATE plants
+          SET name = ${name}
+          WHERE id = ${id}
+        `;
+
+    } catch (e) {
+        return {
+            message: 'Database Error: Failed to Update Invoice.',
+        };
+    }
+    revalidatePath('/plants');
+    redirect('/plants');
+}
+

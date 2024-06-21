@@ -1,4 +1,4 @@
-import { PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { PencilIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { deletePlant } from '@/lib/actions';
 
@@ -24,5 +24,16 @@ export function DeletePlant({ id }: { id: string }) {
         <TrashIcon className="w-4" />
       </button>
     </form>
+  );
+}
+
+export function EditPlant({ id }: { id: string }) {
+  return (
+    <Link
+      href={`/plants/${id}`}
+      className="rounded-md border p-2 hover:bg-gray-100"
+    >
+      <PencilIcon className="w-5" />
+    </Link>
   );
 }
