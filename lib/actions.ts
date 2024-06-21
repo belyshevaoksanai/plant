@@ -52,3 +52,16 @@ export async function createPlant(prevState: State, formData: FormData) {
     revalidatePath('/plants');
     redirect('/plants');
 }
+
+export async function deletePlant(id: string) {
+    try {
+        await sql`DELETE FROM plants WHERE id = ${id}`;
+        revalidatePath('/plants');
+        return { message: 'Deleted Plant' };
+    } catch (e) {
+        return {
+            message: 'Database Error: Ошибка удаления.',
+        };
+    }
+}
+
