@@ -10,7 +10,7 @@ import { usePathname } from 'next/navigation';
 
 const links = [
   { name: 'Твои цветы', href: '/plants', icon: SparklesIcon },
-  { name: 'Локации', href: '/location', icon: HomeIcon }
+  { name: 'Локации', href: '/locations', icon: HomeIcon }
 ];
 
 export default function NavLinks() {

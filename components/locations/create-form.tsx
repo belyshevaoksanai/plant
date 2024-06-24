@@ -2,45 +2,50 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/button';
-import { updatePlant } from '@/lib/actions';
-import { IPlant } from '@/lib/definitions';
+import { createLocation } from '@/lib/actions';
+import { useFormState } from 'react-dom';
 
-export default function EditPlantForm({
-  plant
-}: {
-  plant: IPlant;
-}) {
-  const updatePlantWithId = updatePlant.bind(null, plant.id);
+export default function Form() {
+  const initialState = { message: '', errors: {} };
+  const [state, dispatch] = useFormState(createLocation, initialState);
 
   return (
-    <form action={updatePlantWithId}>
+    <form action={dispatch}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
+        {/* Name */}
         <div className="mb-4">
           <label htmlFor="name" className="mb-2 block text-sm font-medium">
             Название
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
-            <input
+              <input
                 id="name"
                 name="name"
                 placeholder="Введите название"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby="name-error"
-                defaultValue={plant.name}
               />
             </div>
+          </div>
+          <div id="name-error" aria-live="polite" aria-atomic="true">
+            {state.errors?.name &&
+              state.errors.name.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
           </div>
         </div>
       </div>
       <div className="mt-6 flex justify-end gap-4">
         <Link
-          href="/plants"
+          href="/locations"
           className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
         >
           Отмена
         </Link>
-        <Button type="submit">Сохранить</Button>
+        <Button type="submit">Создать</Button>
       </div>
     </form>
   );

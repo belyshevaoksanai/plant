@@ -1,9 +1,9 @@
 import { sql } from '@vercel/postgres';
 import { unstable_noStore as noStore } from 'next/cache';
 import {
-  IPlant
+  IPlant,
+  ILocation
 } from './definitions';
-
 
 export async function fetchPlants() {
   noStore();
@@ -14,10 +14,9 @@ export async function fetchPlants() {
     return data.rows;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch revenue data.');
+    throw new Error('Failed to fetch plant data.');
   }
 }
-
 
 export async function fetchPlantById(id: string) {
   noStore();
@@ -37,5 +36,40 @@ export async function fetchPlantById(id: string) {
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch plant.');
+  }
+}
+
+
+export async function fetchLocations() {
+  noStore();
+
+  try {
+    const data = await sql<ILocation>`SELECT * FROM locations`;
+
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch location data.');
+  }
+}
+
+export async function fetchLocationById(id: string) {
+  noStore();
+
+  try {
+    const data = await sql<IPlant>`
+      SELECT
+        locations.id,
+        locations.name
+      FROM locations
+      WHERE locations.id = ${id};
+    `;
+
+    const locations = data.rows;
+
+    return locations[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch location.');
   }
 }
