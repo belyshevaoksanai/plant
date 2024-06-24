@@ -3,12 +3,12 @@
 import Link from 'next/link';
 import { Button } from '@/components/button';
 import { updatePlant } from '@/lib/actions';
-import { IPlant } from '@/lib/definitions';
+import { ILocation } from '@/lib/definitions';
 
 export default function EditPlantForm({
   plant
 }: {
-  plant: IPlant;
+  plant: ILocation;
 }) {
   const updatePlantWithId = updatePlant.bind(null, plant.id);
 
@@ -25,7 +25,7 @@ export default function EditPlantForm({
                 id="name"
                 name="name"
                 placeholder="Введите название"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                className="peer block w-full rounded-md border p-2 text-sm outline-2"
                 aria-describedby="name-error"
                 defaultValue={plant.name}
               />
@@ -36,7 +36,7 @@ export default function EditPlantForm({
       <div className="mt-6 flex justify-end gap-4">
         <Link
           href="/plants"
-          className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
+          className="flex h-10 items-center rounded-lg bg-green text-white px-4 text-sm font-medium transition-colors"
         >
           Отмена
         </Link>

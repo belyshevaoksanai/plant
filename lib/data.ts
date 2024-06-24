@@ -57,7 +57,7 @@ export async function fetchLocationById(id: string) {
   noStore();
 
   try {
-    const data = await sql<IPlant>`
+    const data = await sql<ILocation>`
       SELECT
         locations.id,
         locations.name

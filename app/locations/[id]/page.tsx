@@ -1,20 +1,20 @@
-import Form from '@/components/plants/edit-form';
-import { fetchPlantById } from '@/lib/data';
+import Form from '@/components/locations/edit-form';
+import { fetchLocationById } from '@/lib/data';
 import { notFound } from 'next/navigation';
 
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id;
-    const [plant] = await Promise.all([
-        fetchPlantById(id),
+    const [location] = await Promise.all([
+        fetchLocationById(id),
     ]);
 
-    if (!plant) {
+    if (!location) {
         notFound();
     }
 
     return (
         <main>
-            <Form plant={plant} />
+            <Form location={location} />
         </main>
     );
 }
