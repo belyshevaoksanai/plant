@@ -21,7 +21,7 @@ export function DeletePlant({ id }: { id: string }) {
     <form action={deletePlantWithId}>
       <button className="rounded-md border p-2 hover:bg-gray-100">
         <span className="sr-only">Удалить</span>
-        <TrashIcon className="w-4" />
+        <TrashIcon className="w-5" />
       </button>
     </form>
   );

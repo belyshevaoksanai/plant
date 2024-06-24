@@ -6,7 +6,7 @@ export default function Page() {
     return (
         <>
             <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-                <div>Список растений</div>
+                <h1 className="font-semibold text-2xl">Список растений</h1>
                 <CreatePlant />
             </div>
             <div className="w-full">

@@ -27,7 +27,7 @@ export default async function RootLayout({
               <SideNav />
             </div>
           )}
-          <div className="flex-grow md:overflow-y-auto">{children}</div>
+          <div className={`flex-grow md:overflow-y-auto ${session ? 'p-5' : ''}`}>{children}</div>
         </div>
       </body>
     </html>
