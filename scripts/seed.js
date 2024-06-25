@@ -12,7 +12,8 @@ async function seedPlants(client) {
       CREATE TABLE IF NOT EXISTS plants (
         id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
-        location_id UUID NOT NULL
+        location_id UUID NOT NULL,
+        watering_date VARCHAR(10) NOT NULL
       );
     `;
 
@@ -22,8 +23,8 @@ async function seedPlants(client) {
     const insertedPlants = await Promise.all(
       plants.map(async (plant) => {
         return client.sql`
-        INSERT INTO plants (id, name, location_id)
-        VALUES (${plant.id}, ${plant.name}, ${plant.location_id})
+        INSERT INTO plants (id, name, location_id, watering_date)
+        VALUES (${plant.id}, ${plant.name}, ${plant.location_id}, ${plant.watering_date})
         ON CONFLICT (id) DO NOTHING;
       `;
       }),

@@ -38,6 +38,31 @@ export default function Form({ locations }: { locations: ILocation[] }) {
               ))}
           </div>
         </div>
+        {/* Date */}
+        <div className="mb-4">
+          <label htmlFor="watering_date" className="mb-2 block text-sm font-medium">
+            Дата полива
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="watering_date"
+                name="watering_date"
+                className="peer block w-full rounded-md border p-2 text-sm outline-2"
+                aria-describedby="watering_date-error"
+                type="date"
+              />
+            </div>
+          </div>
+          <div id="watering_date-error" aria-live="polite" aria-atomic="true">
+            {state.errors?.watering_date &&
+              state.errors.watering_date.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
         {/* Location */}
         <div className="mb-4">
           <label htmlFor="name" className="mb-2 block text-sm font-medium">

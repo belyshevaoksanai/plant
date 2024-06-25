@@ -14,6 +14,7 @@ export async function fetchPlants() {
         plants.id,
         plants.name,
         plants.location_id,
+        plants.watering_date,
         locations.name AS location
       FROM plants
       JOIN locations ON plants.location_id = locations.id`;
@@ -32,7 +33,8 @@ export async function fetchPlantById(id: string) {
       SELECT
         plants.id,
         plants.name,
-        plants.location_id
+        plants.location_id,
+        plants.watering_date
       FROM plants
       WHERE plants.id = ${id};
     `;

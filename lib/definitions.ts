@@ -3,6 +3,7 @@ export interface IPlant {
     name: string;
     location_id: string;
     location: string;
+    watering_date: string;
 }
 
 export interface ILocation {

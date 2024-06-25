@@ -1,5 +1,6 @@
 import { fetchPlants } from "@/lib/data";
 import { DeletePlant, EditPlant } from "./buttons";
+import { Button } from "../button";
 
 export async function Table() {
     const plants = await fetchPlants();
@@ -15,6 +16,9 @@ export async function Table() {
                                     Название
                                 </th>
                                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
+                                    Дата полива
+                                </th>
+                                <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
                                     Локация
                                 </th>
                                 <th scope="col" className="relative py-3 pl-6 pr-3">
@@ -23,29 +27,37 @@ export async function Table() {
                             </tr>
                         </thead>
                         <tbody className="bg-white">
-                            {plants?.map((plant) => (
-                                <tr
-                                    key={plant.id}
-                                    className="w-full  border border-green"
-                                >
-                                    <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                                        <div className="flex items-center gap-3">
-                                            <p>{plant.name}</p>
-                                        </div>
-                                    </td>
-                                    <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                                        <div className="flex items-center gap-3">
-                                            <p>{plant.location}</p>
-                                        </div>
-                                    </td>
-                                    <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                                        <div className="flex justify-end gap-3">
-                                            <DeletePlant id={plant.id} />
-                                            <EditPlant id={plant.id} />
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
+                            {plants?.map((plant) => {
+                                return (
+                                    <tr
+                                        key={plant.id}
+                                        className="w-full  border border-green"
+                                    >
+                                        <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                                            <div className="flex items-center gap-3">
+                                                <p>{plant.name}</p>
+                                            </div>
+                                        </td>
+                                        <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                                            <div className="flex items-center gap-3">
+                                                <p>{plant.watering_date}</p>
+                                            </div>
+                                        </td>
+                                        <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                                            <div className="flex items-center gap-3">
+                                                <p>{plant.location}</p>
+                                            </div>
+                                        </td>
+                                        <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                                            <div className="flex justify-end gap-3">
+                                                <Button>Полить</Button>
+                                                <DeletePlant id={plant.id} />
+                                                <EditPlant id={plant.id} />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                )
+                            })}
                         </tbody>
                     </table>
                 </div>

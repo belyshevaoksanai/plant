@@ -34,6 +34,24 @@ export default function EditPlantForm({
             </div>
           </div>
         </div>
+        {/* Date */}
+        <div className="mb-4">
+          <label htmlFor="watering_date" className="mb-2 block text-sm font-medium">
+            Дата полива
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="watering_date"
+                name="watering_date"
+                className="peer block w-full rounded-md border p-2 text-sm outline-2"
+                aria-describedby="watering_date-error"
+                type="date"
+                defaultValue={plant.watering_date}
+              />
+            </div>
+          </div>
+        </div>
         {/* Location Name */}
         <div className="mb-4">
           <label htmlFor="location" className="mb-2 block text-sm font-medium">
@@ -47,7 +65,7 @@ export default function EditPlantForm({
               defaultValue={plant.location_id}
             >
               <option value="" disabled>
-                Выберите локацию  
+                Выберите локацию
               </option>
               {locations.map((location) => (
                 <option key={location.id} value={location.id}>

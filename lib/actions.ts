@@ -9,6 +9,8 @@ import { z } from 'zod';
 export type State = {
     errors?: {
         name?: string[];
+        watering_date?: string;
+        location_id?: string;
     };
     message?: string | null;
 };
@@ -20,7 +22,10 @@ const FormSchema = z.object({
     }),
     name: z.string({
         invalid_type_error: 'Введите имя',
-    })
+    }),
+    watering_date: z.string({
+        invalid_type_error: 'Введите дату',
+    }),
 });
 
 const CreatePlant = FormSchema.omit({ id: true });
@@ -30,6 +35,7 @@ export async function createPlant(prevState: State, formData: FormData) {
     const validatedFields = CreatePlant.safeParse({
         name: formData.get('name'),
         location_id: formData.get('location_id'),
+        watering_date: formData.get('watering_date')
     });
 
     if (!validatedFields.success) {
@@ -39,12 +45,12 @@ export async function createPlant(prevState: State, formData: FormData) {
         };
     }
 
-    const { name, location_id } = validatedFields.data;
+    const { name, location_id, watering_date } = validatedFields.data;
 
     try {
         await sql`
-        INSERT INTO plants (name, location_id)
-        VALUES (${name}, ${location_id})
+        INSERT INTO plants (name, location_id, watering_date)
+        VALUES (${name}, ${location_id}, ${watering_date})
         `;
 
     } catch (e) {
@@ -72,15 +78,16 @@ export async function deletePlant(id: string) {
 const UpdatePlant = FormSchema.omit({ id: true });
 
 export async function updatePlant(id: string, formData: FormData) {
-    const { name, location_id } = UpdatePlant.parse({
+    const { name, location_id, watering_date } = UpdatePlant.parse({
         name: formData.get('name'),
-        location_id: formData.get('location_id')
+        location_id: formData.get('location_id'),
+        watering_date: formData.get('watering_date'),
     });
 
     try {
         await sql`
           UPDATE plants
-          SET name = ${name}, location_id = ${location_id}
+          SET name = ${name}, location_id = ${location_id}, watering_date = ${watering_date}
           WHERE id = ${id}
         `;
 
