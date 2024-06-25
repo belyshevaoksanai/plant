@@ -3,12 +3,14 @@
 import Link from 'next/link';
 import { Button } from '@/components/button';
 import { updatePlant } from '@/lib/actions';
-import { ILocation } from '@/lib/definitions';
+import { ILocation, IPlant } from '@/lib/definitions';
 
 export default function EditPlantForm({
-  plant
+  plant,
+  locations
 }: {
-  plant: ILocation;
+  plant: IPlant;
+  locations: ILocation[]
 }) {
   const updatePlantWithId = updatePlant.bind(null, plant.id);
 
@@ -21,7 +23,7 @@ export default function EditPlantForm({
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
-            <input
+              <input
                 id="name"
                 name="name"
                 placeholder="Введите название"
@@ -30,6 +32,29 @@ export default function EditPlantForm({
                 defaultValue={plant.name}
               />
             </div>
+          </div>
+        </div>
+        {/* Location Name */}
+        <div className="mb-4">
+          <label htmlFor="location" className="mb-2 block text-sm font-medium">
+            Локация
+          </label>
+          <div className="relative">
+            <select
+              id="location"
+              name="location_id"
+              className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+              defaultValue={plant.location_id}
+            >
+              <option value="" disabled>
+                Выберите локацию  
+              </option>
+              {locations.map((location) => (
+                <option key={location.id} value={location.id}>
+                  {location.name}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       </div>

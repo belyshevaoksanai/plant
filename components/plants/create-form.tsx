@@ -1,14 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import {
-  CurrencyDollarIcon,
-} from '@heroicons/react/24/outline';
 import { Button } from '@/components/button';
 import { createPlant } from '@/lib/actions';
 import { useFormState } from 'react-dom';
+import { ILocation } from '@/lib/definitions';
 
-export default function Form() {
+export default function Form({ locations }: { locations: ILocation[] }) {
   const initialState = { message: '', errors: {} };
   const [state, dispatch] = useFormState(createPlant, initialState);
 
@@ -34,6 +32,40 @@ export default function Form() {
           <div id="name-error" aria-live="polite" aria-atomic="true">
             {state.errors?.name &&
               state.errors.name.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
+        {/* Location */}
+        <div className="mb-4">
+          <label htmlFor="name" className="mb-2 block text-sm font-medium">
+            Локация
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <select
+                id="location"
+                name="location_id"
+                className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                defaultValue=""
+                aria-describedby="location-error"
+              >
+                <option value="" disabled>
+                  Выберите локацию
+                </option>
+                {locations.map((location) => (
+                  <option key={location.id} value={location.id}>
+                    {location.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div id="location-error" aria-live="polite" aria-atomic="true">
+            {state.errors?.location_id &&
+              state.errors.location_id.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>

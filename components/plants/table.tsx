@@ -14,6 +14,9 @@ export async function Table() {
                                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
                                     Название
                                 </th>
+                                <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
+                                    Локация
+                                </th>
                                 <th scope="col" className="relative py-3 pl-6 pr-3">
                                     <span className="sr-only">Действия</span>
                                 </th>
@@ -28,6 +31,11 @@ export async function Table() {
                                     <td className="whitespace-nowrap py-3 pl-6 pr-3">
                                         <div className="flex items-center gap-3">
                                             <p>{plant.name}</p>
+                                        </div>
+                                    </td>
+                                    <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                                        <div className="flex items-center gap-3">
+                                            <p>{plant.location}</p>
                                         </div>
                                     </td>
                                     <td className="whitespace-nowrap py-3 pl-6 pr-3">

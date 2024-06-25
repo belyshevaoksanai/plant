@@ -9,8 +9,14 @@ export async function fetchPlants() {
   noStore();
 
   try {
-    const data = await sql<IPlant>`SELECT * FROM plants`;
-
+    const data = await sql<IPlant>`
+      SELECT
+        plants.id,
+        plants.name,
+        plants.location_id,
+        locations.name AS location
+      FROM plants
+      JOIN locations ON plants.location_id = locations.id`;
     return data.rows;
   } catch (error) {
     console.error('Database Error:', error);
@@ -25,7 +31,8 @@ export async function fetchPlantById(id: string) {
     const data = await sql<IPlant>`
       SELECT
         plants.id,
-        plants.name
+        plants.name,
+        plants.location_id
       FROM plants
       WHERE plants.id = ${id};
     `;

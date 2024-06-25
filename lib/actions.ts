@@ -15,6 +15,9 @@ export type State = {
 
 const FormSchema = z.object({
     id: z.string(),
+    location_id: z.string({
+        invalid_type_error: 'Выберите локацию',
+    }),
     name: z.string({
         invalid_type_error: 'Введите имя',
     })
@@ -26,6 +29,7 @@ export async function createPlant(prevState: State, formData: FormData) {
 
     const validatedFields = CreatePlant.safeParse({
         name: formData.get('name'),
+        location_id: formData.get('location_id'),
     });
 
     if (!validatedFields.success) {
@@ -35,12 +39,12 @@ export async function createPlant(prevState: State, formData: FormData) {
         };
     }
 
-    const { name } = validatedFields.data;
+    const { name, location_id } = validatedFields.data;
 
     try {
         await sql`
-        INSERT INTO plants (name)
-        VALUES (${name})
+        INSERT INTO plants (name, location_id)
+        VALUES (${name}, ${location_id})
         `;
 
     } catch (e) {
@@ -68,14 +72,15 @@ export async function deletePlant(id: string) {
 const UpdatePlant = FormSchema.omit({ id: true });
 
 export async function updatePlant(id: string, formData: FormData) {
-    const { name } = UpdatePlant.parse({
-        name: formData.get('name')
+    const { name, location_id } = UpdatePlant.parse({
+        name: formData.get('name'),
+        location_id: formData.get('location_id')
     });
 
     try {
         await sql`
           UPDATE plants
-          SET name = ${name}
+          SET name = ${name}, location_id = ${location_id}
           WHERE id = ${id}
         `;
 
