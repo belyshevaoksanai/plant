@@ -1,6 +1,6 @@
 import { fetchPlants } from "@/lib/data";
 import { DeletePlant, EditPlant } from "./buttons";
-import { Button } from "../button";
+import { WateringButton } from "./watering-button";
 
 export async function Table() {
     const plants = await fetchPlants();
@@ -50,7 +50,7 @@ export async function Table() {
                                         </td>
                                         <td className="whitespace-nowrap py-3 pl-6 pr-3">
                                             <div className="flex justify-end gap-3">
-                                                <Button>Полить</Button>
+                                                <WateringButton id={plant.id} />
                                                 <DeletePlant id={plant.id} />
                                                 <EditPlant id={plant.id} />
                                             </div>

@@ -100,6 +100,22 @@ export async function updatePlant(id: string, formData: FormData) {
     redirect('/plants');
 }
 
+export async function updatePlantWateringDate(id: string, date: string) {
+    try {
+        await sql`
+          UPDATE plants
+          SET watering_date = ${date}
+          WHERE id = ${id}
+        `;
+
+    } catch (e) {
+        return {
+            message: 'Database Error: Failed to Update Plant.',
+        };
+    }
+    revalidatePath('/plants');
+}
+
 export type LocationState = {
     errors?: {
         name?: string[];
