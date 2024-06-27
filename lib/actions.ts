@@ -9,9 +9,9 @@ import { z } from 'zod';
 export type State = {
     errors?: {
         name?: string[];
-        watering_date?: string;
-        location_id?: string;
-        days_between_watering?: number;
+        watering_date?: string[];
+        location_id?: string[];
+        days_between_watering?: string[];
     };
     message?: string | null;
 };
