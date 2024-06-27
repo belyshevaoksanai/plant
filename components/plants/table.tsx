@@ -28,6 +28,12 @@ export async function Table() {
                         </thead>
                         <tbody className="bg-white">
                             {plants?.map((plant) => {
+                                const {watering_date, days_between_watering} = plant;
+
+                                const msInDay = 24 * 60 * 60 * 1000;
+                                const wateringDate = new Date(watering_date).getTime() + days_between_watering * msInDay;
+                                const curDate =  new Date().getTime();
+
                                 return (
                                     <tr
                                         key={plant.id}
@@ -50,7 +56,9 @@ export async function Table() {
                                         </td>
                                         <td className="whitespace-nowrap py-3 pl-6 pr-3">
                                             <div className="flex justify-end gap-3">
-                                                <WateringButton id={plant.id} />
+                                                {
+                                                    wateringDate <= curDate && <WateringButton id={plant.id} />
+                                                }
                                                 <DeletePlant id={plant.id} />
                                                 <EditPlant id={plant.id} />
                                             </div>

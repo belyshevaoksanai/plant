@@ -12,7 +12,7 @@ export function WateringButton({ id }: {
             let date = '';
             date += currentDate.getFullYear() + '-';
             date += currentDate.getMonth() < 10 ? '0' : '';
-            date += currentDate.getMonth() + '-';
+            date += (currentDate.getMonth() + 1) + '-';
             date += currentDate.getDate() < 10 ? '0' : '';
             date += currentDate.getDate();
             updatePlantWateringDate(id, date);
