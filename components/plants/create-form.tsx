@@ -38,6 +38,32 @@ export default function Form({ locations }: { locations: ILocation[] }) {
               ))}
           </div>
         </div>
+        {/* DaysBetweenWatering */}
+        <div className="mb-4">
+          <label htmlFor="name" className="mb-2 block text-sm font-medium">
+            Количество дней между поливами
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="days_between_watering"
+                name="days_between_watering"
+                placeholder="Введите количество дней между поливами"
+                type="number"
+                className="peer block w-full rounded-md border p-2 text-sm outline-2"
+                aria-describedby="days_between_watering-error"
+              />
+            </div>
+          </div>
+          <div id="days_between_watering-error" aria-live="polite" aria-atomic="true">
+            {state.errors?.days_between_watering &&
+              state.errors.days_between_watering.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
         {/* Date */}
         <div className="mb-4">
           <label htmlFor="watering_date" className="mb-2 block text-sm font-medium">

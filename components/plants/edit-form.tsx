@@ -34,6 +34,25 @@ export default function EditPlantForm({
             </div>
           </div>
         </div>
+        {/* DaysBetweenWatering */}
+        <div className="mb-4">
+          <label htmlFor="name" className="mb-2 block text-sm font-medium">
+            Количество дней между поливами
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="days_between_watering"
+                name="days_between_watering"
+                placeholder="Введите количество дней между поливами"
+                type="number"
+                className="peer block w-full rounded-md border p-2 text-sm outline-2"
+                aria-describedby="days_between_watering-error"
+                defaultValue={plant.days_between_watering}
+              />
+            </div>
+          </div>
+        </div>
         {/* Date */}
         <div className="mb-4">
           <label htmlFor="watering_date" className="mb-2 block text-sm font-medium">

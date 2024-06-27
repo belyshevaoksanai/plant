@@ -11,6 +11,7 @@ export type State = {
         name?: string[];
         watering_date?: string;
         location_id?: string;
+        days_between_watering?: number;
     };
     message?: string | null;
 };
@@ -23,6 +24,9 @@ const FormSchema = z.object({
     name: z.string({
         invalid_type_error: 'Введите имя',
     }),
+    days_between_watering: z.coerce
+        .number()
+        .gt(0, { message: 'Введите количество дней между поливами больше 0' }),
     watering_date: z.string({
         invalid_type_error: 'Введите дату',
     }),
@@ -35,7 +39,8 @@ export async function createPlant(prevState: State, formData: FormData) {
     const validatedFields = CreatePlant.safeParse({
         name: formData.get('name'),
         location_id: formData.get('location_id'),
-        watering_date: formData.get('watering_date')
+        watering_date: formData.get('watering_date'),
+        days_between_watering: formData.get('days_between_watering')
     });
 
     if (!validatedFields.success) {
@@ -45,12 +50,12 @@ export async function createPlant(prevState: State, formData: FormData) {
         };
     }
 
-    const { name, location_id, watering_date } = validatedFields.data;
+    const { name, location_id, watering_date, days_between_watering } = validatedFields.data;
 
     try {
         await sql`
-        INSERT INTO plants (name, location_id, watering_date)
-        VALUES (${name}, ${location_id}, ${watering_date})
+        INSERT INTO plants (name, location_id, watering_date, days_between_watering)
+        VALUES (${name}, ${location_id}, ${watering_date}, ${days_between_watering})
         `;
 
     } catch (e) {
@@ -78,16 +83,17 @@ export async function deletePlant(id: string) {
 const UpdatePlant = FormSchema.omit({ id: true });
 
 export async function updatePlant(id: string, formData: FormData) {
-    const { name, location_id, watering_date } = UpdatePlant.parse({
+    const { name, location_id, watering_date, days_between_watering } = UpdatePlant.parse({
         name: formData.get('name'),
         location_id: formData.get('location_id'),
         watering_date: formData.get('watering_date'),
+        days_between_watering: formData.get('days_between_watering'),
     });
 
     try {
         await sql`
           UPDATE plants
-          SET name = ${name}, location_id = ${location_id}, watering_date = ${watering_date}
+          SET name = ${name}, location_id = ${location_id}, watering_date = ${watering_date}, days_between_watering = ${days_between_watering}
           WHERE id = ${id}
         `;
 

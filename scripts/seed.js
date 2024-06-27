@@ -13,6 +13,7 @@ async function seedPlants(client) {
         id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
         location_id UUID NOT NULL,
+        days_between_watering INT NOT NULL,
         watering_date VARCHAR(10) NOT NULL
       );
     `;
@@ -23,8 +24,8 @@ async function seedPlants(client) {
     const insertedPlants = await Promise.all(
       plants.map(async (plant) => {
         return client.sql`
-        INSERT INTO plants (id, name, location_id, watering_date)
-        VALUES (${plant.id}, ${plant.name}, ${plant.location_id}, ${plant.watering_date})
+        INSERT INTO plants (id, name, location_id, watering_date, days_between_watering)
+        VALUES (${plant.id}, ${plant.name}, ${plant.location_id}, ${plant.watering_date}, ${plant.days_between_watering})
         ON CONFLICT (id) DO NOTHING;
       `;
       }),
