@@ -1,0 +1,35 @@
+.checkbox-input {
+    appearance: none;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    box-shadow: inset 0 0 5px rgb(0 0 0 / 0.2);
+    border-radius: 10px;
+    border: 1px solid #FFFFFF;
+    transition: 500ms;
+}
+
+.checkbox-input::after {
+    content: "";
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    font-size: 30px;
+    background-image: url("/check.svg");
+    background-repeat: no-repeat;
+    transition: 500ms;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.checkbox-input:checked::after {
+    width: 30px;
+    height: 30px;
+    transition: 500ms;
+}
+
+.checkbox-input:disabled {
+    background: #ccc;
+    border-color: #ccc;
+}

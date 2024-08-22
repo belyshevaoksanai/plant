@@ -1,6 +1,7 @@
 import { fetchPlants } from "@/lib/data";
 import { DeletePlant, EditPlant } from "./buttons";
 import { WateringButton } from "./watering-button";
+import { Checkbox } from "../checkbox";
 
 export async function Table() {
     const plants = await fetchPlants();
@@ -12,6 +13,9 @@ export async function Table() {
                     <table className="hidden min-w-full text-gray-900 md:table">
                         <thead className="rounded-lg text-left text-sm font-normal">
                             <tr className="border border-green">
+                                <th scope="col" className="">
+
+                                </th>
                                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
                                     Название
                                 </th>
@@ -39,6 +43,11 @@ export async function Table() {
                                         key={plant.id}
                                         className="w-full  border border-green"
                                     >
+                                        <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                                            <div className="flex">
+                                                <Checkbox />
+                                            </div>
+                                        </td>
                                         <td className="whitespace-nowrap py-3 pl-6 pr-3">
                                             <div className="flex items-center gap-3">
                                                 <p>{plant.name}</p>
