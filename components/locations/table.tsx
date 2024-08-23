@@ -12,10 +12,10 @@ const config = [
         id: 'action',
         getCell: (row: ILocation) => {
             return (
-                <>
+                <div className="flex justify-end">
                     <DeleteLocation id={row.id} />
                     <EditLocation id={row.id} />
-                </>
+                </div>
             )
         }
     }

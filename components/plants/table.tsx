@@ -9,13 +9,16 @@ const tableConfig = [
     {
         header: '',
         id: 'selector',
-        getCell: () => <Checkbox />
+        getCell: () => <Checkbox />,
+        align: 'center' as const
     }, {
         header: 'Название',
-        id: 'name'
+        id: 'name',
+        align: 'center' as const
     }, {
         header: 'Дата полива',
         id: 'watering_date',
+        align: 'center' as const
     }, {
         header: 'Действия',
         id: 'actions',
@@ -27,13 +30,13 @@ const tableConfig = [
             const curDate = new Date().getTime();
 
             return (
-                <>
+                <div className="flex gap-3 justify-end">
                     {
                         wateringDate <= curDate && <WateringButton id={row.id} />
                     }
                     <DeletePlant id={row.id} />
                     <EditPlant id={row.id} />
-                </>
+                </div>
             )
         }
     }
@@ -45,12 +48,11 @@ export async function Table() {
     return (
         <div className="mt-6 flow-root">
             <div className="inline-block min-w-full align-middle">
-                <div className="rounded-lg bg-gray-50">
                     <DataTable
                         data={plants}
                         config={tableConfig}
+                        height="h-80"
                     />
-                </div>
             </div>
         </div>
     )
