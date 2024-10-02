@@ -3,13 +3,10 @@ name: CI
 on: [push]
 
 jobs:
-  log:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Console log
-        run: echo "Hello world"
-
       - name: Checkout to repo
         uses: actions/checkout@v4
 
@@ -20,3 +17,9 @@ jobs:
 
       - name: Log node version
         run: node -v
+
+      - name: Install deps
+        run: npm ci
+      
+      - name: Run lint
+        run: npm run lint
