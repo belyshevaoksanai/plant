@@ -1,9 +1,9 @@
 import { fetchLocations } from "@/lib/data";
 import { DeleteLocation, EditLocation } from "./buttons";
-import { Table as DataTable } from '../table';
+import { Table as DataTable, ITable } from '../table';
 import { ILocation } from "@/lib/definitions";
 
-const config = [
+const config: ITable<ILocation>['config']  = [
     {
         header: "Название",
         id: "name"

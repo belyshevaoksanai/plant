@@ -2,10 +2,10 @@ import { fetchPlants } from "@/lib/data";
 import { DeletePlant, EditPlant } from "./buttons";
 import { WateringButton } from "./watering-button";
 import { Checkbox } from "../checkbox";
-import { Table as DataTable } from '../table';
+import { Table as DataTable, ITable } from '../table';
 import { IPlant } from "@/lib/definitions";
 
-const tableConfig = [
+const tableConfig: ITable<IPlant>['config'] = [
     {
         header: '',
         id: 'selector',

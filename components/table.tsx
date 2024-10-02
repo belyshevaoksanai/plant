@@ -1,4 +1,4 @@
-type ITable<T> = {
+export type ITable<T> = {
     config: {
         id: Extract<keyof T, string> | string;
         header: string;

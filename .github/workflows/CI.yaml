@@ -1,0 +1,11 @@
+name: CI
+
+on: [push]
+
+jobs:
+  log:
+    runs-on: ubuntu-lates
+
+    steps:
+      - name: Console log
+        run: echo "Hello world"
