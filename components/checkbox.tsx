@@ -1,3 +1,5 @@
+import type React from "react";
+
 import styles from './checkbox.module.scss';
 
 export function Checkbox(props: React.InputHTMLAttributes<HTMLInputElement>) {
