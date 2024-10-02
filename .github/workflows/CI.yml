@@ -1,0 +1,22 @@
+name: CI
+
+on: [push]
+
+jobs:
+  log:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Console log
+        run: echo "Hello world"
+
+      - name: Checkout to repo
+        uses: actions/checkout@v4
+
+      - name: Setup Nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.12.2
+
+      - name: Log node version
+        run: node -v
