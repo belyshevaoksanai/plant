@@ -1,8 +1,10 @@
+import type React from "react";
+
 export type ITable<T> = {
     config: {
         id: Extract<keyof T, string> | string;
         header: string;
-        getCell?: (row: T) => React.ReactElement;
+        getCell?: (_row: T) => React.ReactElement;
         align?: 'center' | 'left' | 'right';
     }[];
     data?: T[];
