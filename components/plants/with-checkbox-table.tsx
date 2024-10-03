@@ -20,12 +20,8 @@ export function WithCheckboxTable({ plants }: { plants: IPlant[] }) {
         }
     }
 
-    const handleResetSelected = () => {
-        clear();
-    }
-
     return (
-        <SelectedContext.Provider value={{ selected, onChangeCheckbox: handleChangeCheckbox, onResetCheckboxes: handleResetSelected }}>
+        <SelectedContext.Provider value={{ selected, onChangeCheckbox: handleChangeCheckbox, onResetCheckboxes: clear }}>
             <div className="mt-6 flow-root">
                 <div className="inline-block min-w-full align-middle">
                     <DataTable
