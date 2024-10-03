@@ -10,7 +10,7 @@ import { SelectedContext } from './context';
 import { useArrayState } from '@/hooks/useArrayState';
 
 export function WithCheckboxTable({ plants }: { plants: IPlant[] }) {
-    const [selected, { add, remove, clear, toggle }] = useArrayState<string>([]);
+    const [selected, { clear, toggle }] = useArrayState<string>([]);
 
     return (
         <SelectedContext.Provider value={{ selected, onChangeCheckbox: toggle, onResetCheckboxes: clear }}>

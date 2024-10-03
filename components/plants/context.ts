@@ -1,4 +1,3 @@
-import { IPlant } from "@/lib/definitions";
 import { createContext } from "react";
 
 // Контекст выделенных строк таблицы Plant
