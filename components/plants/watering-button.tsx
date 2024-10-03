@@ -1,9 +1,10 @@
 'use client';
+import { useContext } from "react";
 
 import { updatePlantWateringDate } from "@/lib/actions";
+
 import { Button } from "../button";
-import { SelectedContext } from "./with-checkbox-table";
-import { useContext } from "react";
+import { SelectedContext } from "./context";
 
 export function WateringButton({ id, onResetSelected }: {
     id?: string;

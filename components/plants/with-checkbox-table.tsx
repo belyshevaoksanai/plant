@@ -3,76 +3,25 @@
 import React from 'react';
 import { IPlant } from "@/lib/definitions";
 
-import { DeletePlant, EditPlant } from "./buttons";
-import { WateringButton } from "./watering-button";
-import { Checkbox } from "../checkbox";
-import { Table as DataTable, ITable } from '../table';
-import { useContext, useState } from "react";
 
-function PlantCheckbox({plant, onChange}: {plant: IPlant, onChange: (_p: IPlant) => void}) {
-    const selected = useContext(SelectedContext);
-    return (
-        <Checkbox
-            onChange={() => onChange(plant)}
-            checked={selected.includes(plant.id)}
-        />
-    )
-}
-
-const tableConfig = (onChange: (_plant: IPlant) => void, onResetSelected: () => void): ITable<IPlant>['config'] => [
-    {
-        header: '',
-        id: 'selector',
-        getCell: (plant) => <PlantCheckbox onChange={onChange} plant={plant} />,
-        align: 'center' as const
-    }, {
-        header: 'Название',
-        id: 'name',
-        align: 'center' as const
-    }, {
-        header: 'Дата полива',
-        id: 'watering_date',
-        align: 'center' as const
-    }, {
-        header: <WateringButton onResetSelected={onResetSelected} />,
-        id: 'actions',
-        getCell: (row: IPlant) => {
-            const { watering_date, days_between_watering } = row;
-
-            const msInDay = 24 * 60 * 60 * 1000;
-            const wateringDate = new Date(watering_date).getTime() + days_between_watering * msInDay;
-            const curDate = new Date().getTime();
-
-            return (
-                <div className="flex gap-3 justify-end">
-                    {
-                        wateringDate <= curDate && <WateringButton id={row.id} />
-                    }
-                    <DeletePlant id={row.id} />
-                    <EditPlant id={row.id} />
-                </div>
-            )
-        }
-    }
-]
-
-import { createContext } from 'react';
-
-export const SelectedContext = createContext<string[]>([]);
+import { Table as DataTable } from '../table';
+import { tableConfig } from './table-config';
+import { SelectedContext } from './context';
+import { useArrayState } from '@/hooks/useArrayState';
 
 export function WithCheckboxTable({ plants }: { plants: IPlant[] }) {
-    const [selected, setSelected] = useState<string[]>([]);
+    const [selected, { add, remove, clear }] = useArrayState<string>([]);
 
     const handleChangeCheckbox = (plant: IPlant) => {
         if (selected.includes(plant.id)) {
-            setSelected(s => s.filter((id) => id !== plant.id))
+            remove(plant.id)
         } else {
-            setSelected(s => [...s, plant.id])
+            add(plant.id);
         }
     }
 
     const handleResetSelected = () => {
-        setSelected([]);
+        clear();
     }
 
     return (
