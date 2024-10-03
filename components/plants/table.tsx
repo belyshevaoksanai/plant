@@ -1,9 +1,10 @@
 import { fetchPlants } from "@/lib/data";
+import { IPlant } from "@/lib/definitions";
+
 import { DeletePlant, EditPlant } from "./buttons";
 import { WateringButton } from "./watering-button";
 import { Checkbox } from "../checkbox";
 import { Table as DataTable, ITable } from '../table';
-import { IPlant } from "@/lib/definitions";
 
 const tableConfig: ITable<IPlant>['config'] = [
     {
