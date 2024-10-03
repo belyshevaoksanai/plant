@@ -12,7 +12,7 @@ function PlantCheckbox({plant}: {plant: IPlant}) {
     const { selected, onChangeCheckbox } = useContext(SelectedContext);
     return (
         <Checkbox
-            onChange={() => onChangeCheckbox(plant)}
+            onChange={() => onChangeCheckbox(plant.id)}
             checked={selected.includes(plant.id)}
         />
     )

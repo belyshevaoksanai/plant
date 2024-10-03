@@ -7,7 +7,7 @@ import { createContext } from "react";
 // onResetCheckboxes - сбросить все выбранные элементы
 export const SelectedContext = createContext<{
     selected: string[],
-    onChangeCheckbox: (_c: IPlant) => void,
+    onChangeCheckbox: (_c: string) => void,
     onResetCheckboxes: () => void
 }>({
     selected: [],
