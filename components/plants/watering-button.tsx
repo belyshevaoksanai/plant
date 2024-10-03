@@ -5,8 +5,9 @@ import { Button } from "../button";
 import { SelectedContext } from "./with-checkbox-table";
 import { useContext } from "react";
 
-export function WateringButton({ id }: {
-    id?: string
+export function WateringButton({ id, onResetSelected }: {
+    id?: string;
+    onResetSelected?: () => void
 }) {
     const selected = useContext(SelectedContext);
 
@@ -23,6 +24,7 @@ export function WateringButton({ id }: {
                 selected.forEach((id) => {
                     updatePlantWateringDate(id, date);
                 })
+                onResetSelected?.();
             } else {
                 updatePlantWateringDate(id, date);
             }

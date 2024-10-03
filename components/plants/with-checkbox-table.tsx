@@ -1,18 +1,29 @@
 'use client'
 
+import React from 'react';
 import { IPlant } from "@/lib/definitions";
 
 import { DeletePlant, EditPlant } from "./buttons";
 import { WateringButton } from "./watering-button";
 import { Checkbox } from "../checkbox";
 import { Table as DataTable, ITable } from '../table';
-import { useState } from "react";
+import { useContext, useState } from "react";
 
-const tableConfig = (onChange: (_plant: IPlant) => void): ITable<IPlant>['config'] => [
+function PlantCheckbox({plant, onChange}: {plant: IPlant, onChange: (_p: IPlant) => void}) {
+    const selected = useContext(SelectedContext);
+    return (
+        <Checkbox
+            onChange={() => onChange(plant)}
+            checked={selected.includes(plant.id)}
+        />
+    )
+}
+
+const tableConfig = (onChange: (_plant: IPlant) => void, onResetSelected: () => void): ITable<IPlant>['config'] => [
     {
         header: '',
         id: 'selector',
-        getCell: (row) => <Checkbox onChange={() => onChange(row)} />,
+        getCell: (plant) => <PlantCheckbox onChange={onChange} plant={plant} />,
         align: 'center' as const
     }, {
         header: 'Название',
@@ -23,7 +34,7 @@ const tableConfig = (onChange: (_plant: IPlant) => void): ITable<IPlant>['config
         id: 'watering_date',
         align: 'center' as const
     }, {
-        header: <WateringButton />,
+        header: <WateringButton onResetSelected={onResetSelected} />,
         id: 'actions',
         getCell: (row: IPlant) => {
             const { watering_date, days_between_watering } = row;
@@ -60,13 +71,17 @@ export function WithCheckboxTable({ plants }: { plants: IPlant[] }) {
         }
     }
 
+    const handleResetSelected = () => {
+        setSelected([]);
+    }
+
     return (
         <SelectedContext.Provider value={selected}>
             <div className="mt-6 flow-root">
                 <div className="inline-block min-w-full align-middle">
                     <DataTable
                         data={plants}
-                        config={tableConfig(handleChangeCheckbox)}
+                        config={tableConfig(handleChangeCheckbox, handleResetSelected)}
                         height="h-80"
                     />
                 </div>
