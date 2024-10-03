@@ -3,7 +3,7 @@ import type React from "react";
 export type ITable<T> = {
     config: {
         id: Extract<keyof T, string> | string;
-        header: string;
+        header: React.ReactElement | string;
         getCell?: (_row: T) => React.ReactElement;
         align?: 'center' | 'left' | 'right';
     }[];
@@ -21,7 +21,7 @@ export function Table<T extends { id: string }>({ config, data, height }: ITable
                             {config.map((item) => (
                                 <th
                                     scope="col"
-                                    key={item.header}
+                                    key={item.id}
                                     className="font-medium bg-beige py-3 px-3 sticky top-0 z-50"
                                 >
                                     {item.header}
