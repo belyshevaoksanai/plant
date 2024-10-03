@@ -6,7 +6,9 @@ import { useState } from "react";
 //         remove - метод для удаления из массива
 //         clear - очищение массива
 export const useArrayState = <T>(initialState: T[] = []): [T[], {
-    add: (_item: T) => void, remove: (_item: T) => void, clear: () => void
+    add: (_item: T) => void,
+    remove: (_item: T) => void,
+    clear: () => void
 },] => {
     const [state, setState] = useState(initialState);
 
