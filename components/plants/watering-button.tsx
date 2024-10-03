@@ -1,4 +1,5 @@
 'use client';
+
 import { useContext } from "react";
 
 import { updatePlantWateringDate } from "@/lib/actions";
@@ -6,11 +7,10 @@ import { updatePlantWateringDate } from "@/lib/actions";
 import { Button } from "../button";
 import { SelectedContext } from "./context";
 
-export function WateringButton({ id, onResetSelected }: {
+export function WateringButton({ id }: {
     id?: string;
-    onResetSelected?: () => void
 }) {
-    const selected = useContext(SelectedContext);
+    const { selected, onResetCheckboxes } = useContext(SelectedContext);
 
     return (
         <Button onClick={() => {
@@ -25,7 +25,7 @@ export function WateringButton({ id, onResetSelected }: {
                 selected.forEach((id) => {
                     updatePlantWateringDate(id, date);
                 })
-                onResetSelected?.();
+                onResetCheckboxes();
             } else {
                 updatePlantWateringDate(id, date);
             }

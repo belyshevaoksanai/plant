@@ -8,22 +8,22 @@ import { Checkbox } from "../checkbox";
 import { SelectedContext } from "./context";
 
 // Чекбокс, который берет свое значение из контекста
-function PlantCheckbox({plant, onChange}: {plant: IPlant, onChange: (_p: IPlant) => void}) {
-    const selected = useContext(SelectedContext);
+function PlantCheckbox({plant}: {plant: IPlant}) {
+    const { selected, onChangeCheckbox } = useContext(SelectedContext);
     return (
         <Checkbox
-            onChange={() => onChange(plant)}
+            onChange={() => onChangeCheckbox(plant)}
             checked={selected.includes(plant.id)}
         />
     )
 }
 
 // Конфиги для таблицы Plant
-export const tableConfig = (onChange: (_plant: IPlant) => void, onResetSelected: () => void): ITable<IPlant>['config'] => [
+export const tableConfig: ITable<IPlant>['config'] = [
     {
         header: '',
         id: 'selector',
-        getCell: (plant) => <PlantCheckbox onChange={onChange} plant={plant} />,
+        getCell: (plant) => <PlantCheckbox plant={plant} />,
         align: 'center' as const
     }, {
         header: 'Название',
@@ -34,7 +34,7 @@ export const tableConfig = (onChange: (_plant: IPlant) => void, onResetSelected:
         id: 'watering_date',
         align: 'center' as const
     }, {
-        header: <WateringButton onResetSelected={onResetSelected} />,
+        header: <WateringButton />,
         id: 'actions',
         getCell: (row: IPlant) => {
             const { watering_date, days_between_watering } = row;

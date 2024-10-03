@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react';
-import { IPlant } from "@/lib/definitions";
 
+import { IPlant } from "@/lib/definitions";
 
 import { Table as DataTable } from '../table';
 import { tableConfig } from './table-config';
@@ -25,12 +25,12 @@ export function WithCheckboxTable({ plants }: { plants: IPlant[] }) {
     }
 
     return (
-        <SelectedContext.Provider value={selected}>
+        <SelectedContext.Provider value={{ selected, onChangeCheckbox: handleChangeCheckbox, onResetCheckboxes: handleResetSelected }}>
             <div className="mt-6 flow-root">
                 <div className="inline-block min-w-full align-middle">
                     <DataTable
                         data={plants}
-                        config={tableConfig(handleChangeCheckbox, handleResetSelected)}
+                        config={tableConfig}
                         height="h-80"
                     />
                 </div>
